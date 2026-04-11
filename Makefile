@@ -46,10 +46,12 @@ RTL_SRCS := $(RTL_DIR)/defines.v \
 # Testbench
 TB_SIMPLE := $(TB_DIR)/tb_cpu_simple.v
 TB_FULL := $(TB_DIR)/tb_cpu.v
+TB_LW := $(TB_DIR)/tb_cpu_lw.v
 
 # 编译输出
 VVP_SIMPLE := $(SIM_DIR)/tb_cpu_simple.vvp
 VVP_FULL := $(SIM_DIR)/tb_cpu.vvp
+VVP_LW := $(SIM_DIR)/tb_cpu_lw.vvp
 
 # Iverilog编译选项
 IVERILOG_FLAGS := -g2012 -I $(RTL_DIR)
@@ -89,6 +91,21 @@ run_full: $(VVP_FULL)
 	$(VVP) $(VVP_FULL) > temp/temp$$NEXT.txt 2>&1; \
 	echo "仿真输出已保存到: temp/temp$$NEXT.txt"
 
+# 编译LW testbench
+$(VVP_LW): $(RTL_SRCS) $(TB_LW)
+	@echo "=== 编译 tb_cpu_lw ==="
+	$(IVERILOG) $(IVERILOG_FLAGS) -o $@ $(RTL_SRCS) $(TB_LW)
+	@echo "编译完成: $@"
+
+# 运行LW仿真
+run_lw: $(VVP_LW)
+	@echo "=== 运行 tb_cpu_lw 仿真 ==="
+	@mkdir -p temp
+	@OUTFILE=$$(ls temp/temp*.txt 2>/dev/null | sed 's/.*temp//;s/\.txt$$//' | sort -n | tail -1 || echo -1); \
+	NEXT=$$((OUTFILE + 1)); \
+	$(VVP) $(VVP_LW) > temp/temp$$NEXT.txt 2>&1; \
+	echo "仿真输出已保存到: temp/temp$$NEXT.txt"
+
 # 列出可用测试
 list_tests:
 	@echo "=== 可用测试程序 ==="
@@ -113,7 +130,8 @@ help:
 	@echo "可用目标:"
 	@echo "  make              - 编译所有testbench"
 	@echo "  make run_simple   - 编译并运行tb_cpu_simple仿真"
-	@echo "  make run_full     - 编译并运行tb_cpu仿真"
+	@echo "  make run_full     - 编译并运行tb_cpu仿真(批量测试38个用例)"
+	@echo "  make run_lw       - 编译并运行tb_cpu_lw仿真(调试LW指令)"
 	@echo "  make list_tests   - 列出可用的测试程序"
 	@echo "  make clean        - 清理仿真文件(vvp/vcd)"
 	@echo "  make clean_temp   - 清理临时输出文件(temp/*.txt)"
