@@ -41,7 +41,7 @@
 
 ### 环境要求
 
-- [Icarus Verilog](http://iverilog.icarus.com/) (>= 10.0)
+- iverilog
 - GNU Make
 
 ### 编译运行
