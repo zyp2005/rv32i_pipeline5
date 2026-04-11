@@ -6,6 +6,7 @@ module tb_cpu_simple;
     parameter CLK_PERIOD = 10;
     parameter RESET_CYCLES = 5;
     parameter CPU_RESET_ADDR = 32'h0000_1000;
+    parameter DATA_ADDR = 32'h0000_0000;
 
     reg clk;
     reg rst_n;
@@ -44,7 +45,7 @@ module tb_cpu_simple;
     drom #(
         .XLEN(32),
         .RAM_DEPTH(4096),
-        .BASE_ADDR(CPU_RESET_ADDR)
+        .BASE_ADDR(DATA_ADDR)
     ) u_drom (
         .addr(addr_byte),
         .wdata(wdata),
@@ -103,7 +104,23 @@ module tb_cpu_simple;
                      cpu_inst.id_state_inst.regfile_inst.regs[30],
                      cpu_inst.id_state_inst.regfile_inst.regs[31]);
         end
-    endtask
+    endtask // print_regs
+
+task print_stall;
+begin
+    $display("stall = %b", cpu_inst.stall);
+end
+endtask // print_stall
+
+task print_flush;
+begin
+    $display("flush=%b, predict_failed=%b, is_predict_jump=%b",
+             cpu_inst.ex_flush, cpu_inst.ex_predict_failed, cpu_inst.ex_is_predict_jump);
+end
+endtask // print_flush
+
+
+
 
     initial begin
         integer i;
@@ -121,12 +138,14 @@ module tb_cpu_simple;
         rst_n = 1;
 
         // 运行仿真并打印每一步
-        for (i = 0; i < 200; i = i + 1) begin
+        for (i = 0; i < 600; i = i + 1) begin
             @(posedge clk);
             
             $display("\n----------------------------------------");
             $display("Cycle %3d: PC=0x%08h, Inst=0x%08h", i, irom_addr, irom_rdata);
             print_regs();
+            print_stall();
+            print_flush();
         end
 
         $finish;

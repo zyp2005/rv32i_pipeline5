@@ -1,0 +1,148 @@
+
+rv32mi/jalr.o:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00001000 <_start>:
+    1000:	00000093          	addi	x1,x0,0
+    1004:	00000113          	addi	x2,x0,0
+    1008:	00000193          	addi	x3,x0,0
+    100c:	00000213          	addi	x4,x0,0
+    1010:	00000293          	addi	x5,x0,0
+    1014:	00000313          	addi	x6,x0,0
+    1018:	00000393          	addi	x7,x0,0
+    101c:	00000413          	addi	x8,x0,0
+    1020:	00000493          	addi	x9,x0,0
+    1024:	00000513          	addi	x10,x0,0
+    1028:	00000593          	addi	x11,x0,0
+    102c:	00000613          	addi	x12,x0,0
+    1030:	00000693          	addi	x13,x0,0
+    1034:	00000713          	addi	x14,x0,0
+    1038:	00000793          	addi	x15,x0,0
+    103c:	00000813          	addi	x16,x0,0
+    1040:	00000893          	addi	x17,x0,0
+    1044:	00000913          	addi	x18,x0,0
+    1048:	00000993          	addi	x19,x0,0
+    104c:	00000a13          	addi	x20,x0,0
+    1050:	00000a93          	addi	x21,x0,0
+    1054:	00000b13          	addi	x22,x0,0
+    1058:	00000b93          	addi	x23,x0,0
+    105c:	00000c13          	addi	x24,x0,0
+    1060:	00000c93          	addi	x25,x0,0
+    1064:	00000d13          	addi	x26,x0,0
+    1068:	00000d93          	addi	x27,x0,0
+    106c:	00000e13          	addi	x28,x0,0
+    1070:	00000e93          	addi	x29,x0,0
+    1074:	00000f13          	addi	x30,x0,0
+    1078:	00000f93          	addi	x31,x0,0
+    107c:	00000193          	addi	x3,x0,0
+    1080:	00000413          	addi	x8,x0,0
+
+00001084 <test_2>:
+    1084:	00200193          	addi	x3,x0,2
+    1088:	00000293          	addi	x5,x0,0
+    108c:	00000317          	auipc	x6,0x0
+    1090:	01030313          	addi	x6,x6,16 # 109c <target_2>
+    1094:	000302e7          	jalr	x5,0(x6)
+
+00001098 <linkaddr_2>:
+    1098:	0e00006f          	jal	x0,1178 <fail>
+
+0000109c <target_2>:
+    109c:	00000317          	auipc	x6,0x0
+    10a0:	ffc30313          	addi	x6,x6,-4 # 1098 <linkaddr_2>
+    10a4:	0c629a63          	bne	x5,x6,1178 <fail>
+
+000010a8 <test_3>:
+    10a8:	00300193          	addi	x3,x0,3
+    10ac:	00000297          	auipc	x5,0x0
+    10b0:	01028293          	addi	x5,x5,16 # 10bc <target_3>
+    10b4:	000282e7          	jalr	x5,0(x5)
+
+000010b8 <linkaddr_3>:
+    10b8:	0c00006f          	jal	x0,1178 <fail>
+
+000010bc <target_3>:
+    10bc:	00000317          	auipc	x6,0x0
+    10c0:	ffc30313          	addi	x6,x6,-4 # 10b8 <linkaddr_3>
+    10c4:	0a629a63          	bne	x5,x6,1178 <fail>
+
+000010c8 <test_4>:
+    10c8:	00400193          	addi	x3,x0,4
+    10cc:	00000213          	addi	x4,x0,0
+    10d0:	00000317          	auipc	x6,0x0
+    10d4:	01030313          	addi	x6,x6,16 # 10e0 <test_4+0x18>
+    10d8:	000306e7          	jalr	x13,0(x6)
+    10dc:	08301e63          	bne	x0,x3,1178 <fail>
+    10e0:	00120213          	addi	x4,x4,1 # 1 <begin_signature+0x1>
+    10e4:	00200293          	addi	x5,x0,2
+    10e8:	fe5214e3          	bne	x4,x5,10d0 <test_4+0x8>
+
+000010ec <test_5>:
+    10ec:	00500193          	addi	x3,x0,5
+    10f0:	00000213          	addi	x4,x0,0
+    10f4:	00000317          	auipc	x6,0x0
+    10f8:	01430313          	addi	x6,x6,20 # 1108 <test_5+0x1c>
+    10fc:	00000013          	addi	x0,x0,0
+    1100:	000306e7          	jalr	x13,0(x6)
+    1104:	06301a63          	bne	x0,x3,1178 <fail>
+    1108:	00120213          	addi	x4,x4,1 # 1 <begin_signature+0x1>
+    110c:	00200293          	addi	x5,x0,2
+    1110:	fe5212e3          	bne	x4,x5,10f4 <test_5+0x8>
+
+00001114 <test_6>:
+    1114:	00600193          	addi	x3,x0,6
+    1118:	00000213          	addi	x4,x0,0
+    111c:	00000317          	auipc	x6,0x0
+    1120:	01830313          	addi	x6,x6,24 # 1134 <test_6+0x20>
+    1124:	00000013          	addi	x0,x0,0
+    1128:	00000013          	addi	x0,x0,0
+    112c:	000306e7          	jalr	x13,0(x6)
+    1130:	04301463          	bne	x0,x3,1178 <fail>
+    1134:	00120213          	addi	x4,x4,1 # 1 <begin_signature+0x1>
+    1138:	00200293          	addi	x5,x0,2
+    113c:	fe5210e3          	bne	x4,x5,111c <test_6+0x8>
+
+00001140 <test_7>:
+    1140:	00100293          	addi	x5,x0,1
+    1144:	00000317          	auipc	x6,0x0
+    1148:	01c30313          	addi	x6,x6,28 # 1160 <test_7+0x20>
+    114c:	ffc30067          	jalr	x0,-4(x6)
+    1150:	00128293          	addi	x5,x5,1
+    1154:	00128293          	addi	x5,x5,1
+    1158:	00128293          	addi	x5,x5,1
+    115c:	00128293          	addi	x5,x5,1
+    1160:	00128293          	addi	x5,x5,1
+    1164:	00128293          	addi	x5,x5,1
+    1168:	00400393          	addi	x7,x0,4
+    116c:	00700193          	addi	x3,x0,7
+    1170:	00729463          	bne	x5,x7,1178 <fail>
+    1174:	00301863          	bne	x0,x3,1184 <pass>
+
+00001178 <fail>:
+    1178:	00000193          	addi	x3,x0,0
+    117c:	00100413          	addi	x8,x0,1
+    1180:	00008067          	jalr	x0,0(x1)
+
+00001184 <pass>:
+    1184:	00100193          	addi	x3,x0,1
+    1188:	00100413          	addi	x8,x0,1
+    118c:	00008067          	jalr	x0,0(x1)
+
+00001190 <_end>:
+    1190:	00000013          	addi	x0,x0,0
+
+Disassembly of section .data:
+
+00000000 <begin_signature>:
+   0:	deadbeef          	jal	x29,fffdb5ea <_end+0xfffda45a>
+
+00000004 <td2>:
+   4:	deadbeef          	jal	x29,fffdb5ee <_end+0xfffda45e>
+
+00000008 <td3>:
+   8:	deadbeef          	jal	x29,fffdb5f2 <_end+0xfffda462>
+
+0000000c <td4>:
+   c:	deadbeef          	jal	x29,fffdb5f6 <_end+0xfffda466>

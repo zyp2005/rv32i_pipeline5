@@ -90,8 +90,13 @@ module ex #(
     // real_rs2 输出
     assign real_rs2 = rs2_selected;
 
-    // real_next_pc: imm + pc 或 real_rs1 (is_jalr 选择)
-    assign real_next_pc = is_jalr ? (rs1_selected + imm) : (pc + imm);
+    // real_next_pc: BTFNT 预测失败时的 PC 修正
+    // 当 predict_failed=1 时，实际结果与预测相反：
+    //   - is_predict_jump=1（预测跳转），实际不跳 → PC+4
+    //   - is_predict_jump=0（预测不跳），实际跳转 → PC+imm
+    assign real_next_pc = is_jalr ? (rs1_selected + imm) :
+                          (ALUop == `ALUOP_BRANCH) ? (is_predict_jump ? (pc + 32'd4) : (pc + imm)) :
+                          (pc + imm);  // JAL 总是跳转
 
     // 控制信号直接传递到输出
     assign rs1_addr_out = rs1_addr;

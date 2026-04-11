@@ -16,7 +16,7 @@
 module irom #(
     parameter XLEN = 32,
     parameter WORD_DEPTH = 1024,   // 1024 字（4KB 指令空间）
-    parameter BASE_ADDR = 32'h0000_0000  // 地址基址，可自定义
+    parameter BASE_ADDR = 32'h0000_1000  // 地址基址，可自定义
 )(
     input  wire [XLEN-1:0] addr,      // CPU 字节地址
     output reg  [XLEN-1:0] rdata      // 读出指令（32 位）

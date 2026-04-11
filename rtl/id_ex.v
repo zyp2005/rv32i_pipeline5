@@ -108,7 +108,28 @@ module id_ex #(
             mem_width_mem_out   <= 2'b0;
             is_u_load_mem_out   <= 1'b0;
         end else if (stall) begin
-            // stall: 保持当前值不变
+            // stall: 保持当前值不变 --> 是清空
+            pc_out              <= 32'h0;
+            rs1_out             <= 32'h0;
+            rs2_out             <= 32'h0;
+            rs1_addr_out        <= 5'h0;
+            rs2_addr_out        <= 5'h0;
+            imm_out             <= 32'h0;
+            rd_addr_out         <= 5'h0;
+            rs2_or_imm_ex_out   <= 1'b0;
+            reg_wen_wb_out      <= 1'b0;
+            wen_mem_out         <= 1'b0;
+            ren_mem_out         <= 1'b0;
+            is_jalr_ex_out      <= 1'b0;
+            is_lui_ex_out       <= 1'b0;
+            ALUop_ex_out        <= 2'b0;
+            is_jal_ex_out       <= 1'b0;
+            is_auipc_ex_out     <= 1'b0;
+            funct7_out          <= 7'h0;
+            funct3_out          <= 3'h0;
+            is_predict_jump_out <= 1'b0;
+            mem_width_mem_out   <= 2'b0;
+            is_u_load_mem_out   <= 1'b0;
         end else begin
             pc_out              <= pc;
             rs1_out             <= rs1;

@@ -24,7 +24,7 @@
 module drom #(
     parameter XLEN = 32,
     parameter RAM_DEPTH = 4096,   // 4KB 数据空间（字节为单位）
-    parameter BASE_ADDR = 32'h0000_1000  // 地址基址，可自定义
+    parameter BASE_ADDR = 32'h0000_0000  // 地址基址，可自定义
 )(
     input  wire [XLEN-1:0] addr,      // CPU 字节地址
     input  wire [XLEN-1:0] wdata,     // 写入数据
