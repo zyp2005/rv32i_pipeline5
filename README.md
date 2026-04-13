@@ -134,10 +134,3 @@ Total Tests:  38
 2. **数据内存加载**: 修复 Icarus Verilog 兼容性，`$readmemh` 需在复位释放后执行
 3. **Testbench 复位逻辑**: 修正 stall 和 flush 信号处理
 
-## 许可证
-
-MIT License
-
-## 致谢
-
-- 测试用例基于 RISC-V 官方测试框架
